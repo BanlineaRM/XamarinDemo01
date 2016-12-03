@@ -59,16 +59,16 @@ namespace BanlineaTest.Contacts.ViewModels
             this.PhoneNumbersList.Add(new PhoneNumberListItem(this.PhoneNumbersList.Count, Country.Colombia, string.Empty));
 
 
-            // ToDo: dummy 
-            this.Model.Name = "Mohammad Taghi";
-            this.Model.LastName = "Jahed";
-            this.Model.Company= "Processa S.A.S";
+            //// ToDo: dummy 
+            //this.Model.Name = "Mohammad Taghi";
+            //this.Model.LastName = "Jahed";
+            //this.Model.Company= "Processa S.A.S";
 
-            this.EmailsList.Clear();
-            this.EmailsList.Add(new ListItem(this.EmailsList.Count, "taghi.jahed@yahoo.com"));
+            //this.EmailsList.Clear();
+            //this.EmailsList.Add(new ListItem(this.EmailsList.Count, "taghi.jahed@yahoo.com"));
 
-            this.PhoneNumbersList.Clear();
-            this.PhoneNumbersList.Add(new PhoneNumberListItem(this.PhoneNumbersList.Count, Country.Colombia, "3044337163"));
+            //this.PhoneNumbersList.Clear();
+            //this.PhoneNumbersList.Add(new PhoneNumberListItem(this.PhoneNumbersList.Count, Country.Colombia, "3044337163"));
         }
 
         #endregion
