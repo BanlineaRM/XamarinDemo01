@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BanlineaTest.Contacts"
+             xmlns:viewModels="clr-namespace:BanlineaTest.Contacts.ViewModels;assembly=BanlineaTest.Contacts"
+             xmlns:converters="clr-namespace:BanlineaTest.Contacts.Converters;assembly=BanlineaTest.Contacts"
+             xmlns:resx="clr-namespace:BanlineaTest.Contacts;assembly=BanlineaTest.Contacts"
+             xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             x:Class="BanlineaTest.Contacts.MainPage"
+             Title="{x:Static resx:TextResources.MainPageTitle}"
+             Padding="10">
+
+    <ContentPage.BindingContext>
+        <viewModels:MainPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageNullConverter x:Key="ImageNullConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="About" Order="Primary" Command="{Binding OnAboutUsCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView ItemsSource="{Binding ContactsList}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
+                      HasUnevenRows="True" IsVisible="{Binding ShowDataList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                                <Image Source='{Binding Photo, Converter={StaticResource ImageNullConverter}, ConverterParameter="NoImage.png"}' 
+                                       WidthRequest="96" HeightRequest="96" Aspect="AspectFit" VerticalOptions="Start" />
+                                
+                                <StackLayout Spacing="5" VerticalOptions="StartAndExpand">
+                                    <Label Text="{Binding FullName}" HorizontalOptions="FillAndExpand" FontAttributes="Bold" />
+                                    <Label Text="{Binding Company}" HorizontalOptions="FillAndExpand" TextColor="Gray" />
+                                    <Label Text="{Binding EmailsAsString}" HorizontalOptions="FillAndExpand" TextColor="Gray" />
+                                    <Label Text="{Binding PhoneNumbersAsString}" HorizontalOptions="FillAndExpand" TextColor="Gray" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <StackLayout IsVisible="{Binding ShowEmptyListMessage}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Label Text="{x:Static local:TextResources.NoHayRegistro}"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+            </StackLayout>
+            
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                <Button Text="Add new contact" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Command="{Binding OnNewItemClicked}" />
+                <Button Text="Register contacts" HorizontalOptions="FillAndExpand" VerticalOptions="End" Command="{Binding OnRegisterItemsClicked}" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>
