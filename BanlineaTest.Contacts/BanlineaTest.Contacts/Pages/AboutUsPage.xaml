@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resx="clr-namespace:BanlineaTest.Contacts;assembly=BanlineaTest.Contacts"
+             x:Class="BanlineaTest.Contacts.Pages.AboutUsPage"
+             Title="{x:Static resx:TextResources.AboutPageTitle}"
+             xmlns:viewModels="clr-namespace:BanlineaTest.Contacts.ViewModels;assembly=BanlineaTest.Contacts"
+             Padding="10,30,10,10">
+    
+    <ContentPage.BindingContext>
+        <viewModels:AboutUsViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Image Source="{x:Static resx:ImageResources.ProfilePicture}" WidthRequest="200" HeightRequest="200"  />
+            <Label Text="{x:Static resx:TextResources.ProgrammerName}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+            <Label Text="{x:Static resx:TextResources.ProgrammerPhone}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+            <Label Text="{x:Static resx:TextResources.ProgrammerEmail}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+            
+            <StackLayout Orientation="Horizontal" Margin="0, 30, 0, 0" HorizontalOptions="CenterAndExpand" Spacing="15">
+                <Image Source="{x:Static resx:ImageResources.LinkedIn}" Style="{StaticResource SocialIconStyle}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnSocialItemCommand}" CommandParameter="LinkedIn"  />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Image Source="{x:Static resx:ImageResources.Stackoverflow}" Style="{StaticResource SocialIconStyle}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnSocialItemCommand}" CommandParameter="Stackoverflow"  />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Image Source="{x:Static resx:ImageResources.Twitter}" Style="{StaticResource SocialIconStyle}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnSocialItemCommand}" CommandParameter="Twitter" />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Image Source="{x:Static resx:ImageResources.Facebook}" Style="{StaticResource SocialIconStyle}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnSocialItemCommand}" CommandParameter="Facebook"  />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Image Source="{x:Static resx:ImageResources.Instagram}" Style="{StaticResource SocialIconStyle}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnSocialItemCommand}" CommandParameter="Instagram" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

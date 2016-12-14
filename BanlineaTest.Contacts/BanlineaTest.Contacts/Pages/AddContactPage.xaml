@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:BanlineaTest.Contacts.ViewModels;assembly=BanlineaTest.Contacts"
+             xmlns:resx="clr-namespace:BanlineaTest.Contacts;assembly=BanlineaTest.Contacts"
+             xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             xmlns:converters="clr-namespace:BanlineaTest.Contacts.Converters;assembly=BanlineaTest.Contacts"
+             x:Class="BanlineaTest.Contacts.Pages.AddContactPage"
+             Title="{x:Static resx:TextResources.AddContactPageTitle}"
+             Padding="10, 5">
+
+    <ContentPage.BindingContext>
+        <viewModels:AddContactViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageNullConverter x:Key="ImageNullConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand">
+            <ScrollView VerticalOptions="FillAndExpand">
+                <StackLayout Spacing="3" x:Name="ContentLayout">
+                    <Image HeightRequest="150" WidthRequest="128" Aspect="AspectFit" 
+                           Source='{Binding UserImageBytes, Converter={StaticResource ImageNullConverter}, ConverterParameter="NoImage.png"}' >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnChangePictureCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Entry x:Name="FirstName" Text="{Binding Model.Name}" Placeholder="{x:Static resx:TextResources.FirstNamePlaceholder}"></Entry>
+                    <Entry x:Name="LastName" Text="{Binding Model.LastName}" Placeholder="{x:Static resx:TextResources.LastNamePlaceholder}"></Entry>
+                    <Entry x:Name="CompanyName" Text="{Binding Model.Company}" Placeholder="{x:Static resx:TextResources.CompanyNamePlaceholder}"></Entry>
+
+                    <xlabs:RepeaterView x:TypeArguments="viewModels:ListItem" ItemsSource="{Binding EmailsList}"  HorizontalOptions="FillAndExpand">
+                        <xlabs:RepeaterView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                    <Entry x:Name="EmailAddress" Text="{Binding Text}" Keyboard="Email" Placeholder="{x:Static resx:TextResources.EmailAddressPlaceholder}" HorizontalOptions="FillAndExpand"/>
+
+                                    <Image Source="{x:Static resx:ImageResources.DeleteIcon24}" WidthRequest="25"  HeightRequest="25" HorizontalOptions="End">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.OnDeleteEmailCommand, Source={x:Reference ContentLayout}}" CommandParameter="{Binding}" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </StackLayout>
+                            </DataTemplate>
+                        </xlabs:RepeaterView.ItemTemplate>
+                    </xlabs:RepeaterView>
+                    <Button Text="{x:Static resx:TextResources.MoreEmailsButtonText}" Style="{StaticResource ToolButtonStyle}" Command="{Binding OnAddEmailCommand}"/>
+
+                    <xlabs:RepeaterView x:TypeArguments="viewModels:PhoneNumberListItem" ItemsSource="{Binding PhoneNumbersList}" HorizontalOptions="FillAndExpand">
+                        <xlabs:RepeaterView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                        <Button WidthRequest="60" Text="{Binding Country.Code}" HorizontalOptions="Start" Command="{Binding Path=BindingContext.OnShowCountriesCommand, Source={x:Reference ContentLayout}}" CommandParameter="{Binding}"></Button>
+                                        <xlabs:ExtendedEntry x:Name="PhoneNumber"  Text="{Binding Number}" 
+                                                             Placeholder="{x:Static resx:TextResources.PhoneNumberPlaceholder}"  
+                                                             Keyboard="Telephone" HorizontalOptions="FillAndExpand"
+                                                             MaxLength="{x:Static resx:ConfigurationResources.PhoneNumberMaxLength}" />
+                                    </StackLayout>
+
+                                    <Image Source="{x:Static resx:ImageResources.DeleteIcon24}" WidthRequest="25"  HeightRequest="25" HorizontalOptions="End">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.OnDeletePhoneNumberCommand, Source={x:Reference ContentLayout}}" CommandParameter="{Binding}" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </StackLayout>
+                            </DataTemplate>
+                        </xlabs:RepeaterView.ItemTemplate>
+                    </xlabs:RepeaterView>
+                    <Button Text="{x:Static resx:TextResources.MorePhoneNumbersButtonText}" Style="{StaticResource ToolButtonStyle}" Command="{Binding OnAddPhoneNumberCommand}"/>
+                </StackLayout>
+            </ScrollView>
+
+            <Button Text="Guardar el contacto" HorizontalOptions="FillAndExpand" VerticalOptions="End" Command="{Binding OnSaveCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
